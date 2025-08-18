@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>🚖 Grupo 5 Estrelas Calculadora 🚖</title>
+  <style>
+    :root {
+      --Laranja-principal: #7a0000;
+      --Laranja-claro: #ffd3d3;
+      --branco: #fff;
+      --cinza-claro: #d0d0d0;
+      --cinza-medio: #ccc;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cinza-claro);
+      margin: 0; padding: 20px;
+      color: var(--Laranja-principal);
+    }
+    .card {
+      max-width: 760px;
+      margin: 24px auto;
+      padding: 18px;
+      border-radius: 12px;
+      background: var(--branco);
+      box-shadow: 0 6px 18px rgba(46, 125, 50, 0.3);
+      border: 1px solid var(--Laranja-principal);
+    }
+    h1 {
+      margin-bottom: 12px;
+      font-size: 22px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      font-weight: 600;
+    }
+    select, input[type=text], input[type=number], textarea, button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--cinza-medio);
+      background: var(--Laranja-claro);
+      color: var(--Laranja-principal);
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    input[type=checkbox], input[type=radio] {
+      width: auto;
+      margin-right: 6px;
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+    .row > * {
+      flex: 1;
+    }
+    .small {
+      width: auto;
+      padding: 10px 15px;
+      background: var(--Laranja-principal);
+      border: none;
+      color: var(--branco);
+      font-weight: 700;
+      cursor: pointer;
+      margin-right: 10px;
+      border-radius: 8px;
+    }
+    .small:hover {
+      background: #1b5e20;
+    }
+    .result {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--Laranja-claro);
+      border: 1px dashed var(--Laranja-principal);
+      min-height: 80px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    .section-title {
+      margin-top: 20px;
+      font-size: 18px;
+      border-bottom: 1px solid var(--Laranja-principal);
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🚖 Grupo 5 Estrelas Calculadora 🚖</h1>
+
+    <div class="section-title">Motorista 5 Estrelas</div>
+    <label>Motorista</label>
+    <input type="text" id="motorista" placeholder="Digite o nome do motorista">
+    <label>Carro</label>
+    <input type="text" id="carro" placeholder="Digite o modelo do carro">
+    <label>Placa</label>
+    <input type="text" id="placa" placeholder="Digite a placa">
+
+    <div class="section-title">Localidades ORIGEM/DESTINO</div>
+    <label for="orig">Origem</label>
+    <select id="orig"></select>
+    <label for="parada">Parada</label>
+    <select id="parada"></select>
+    <label for="dest">Destino</label>
+    <select id="dest"></select>
+
+    <div class="section-title">Taxas Adicionais</div>
+    <label><input type="checkbox" id="taxaNoturno"> Adicional Noturno (50%)</label>
+    <label><input type="checkbox" id="taxaCompras"> Taxa de Compras (R$ 5,00)</label>
+    <label><input type="checkbox" id="taxaExcesso"> Taxa Excesso Pessoas/Bagagens (R$ 8,00)</label>
+    <label><input type="checkbox" id="taxaPetCasinha"> Pet na casinha (R$ 5,00)</label>
+    <label><input type="checkbox" id="taxaPetSemCasinha"> Pet sem casinha (R$ 15,00)</label>
+    <label>Taxa de Espera (minutos)</label>
+    <input type="number" id="minEspera" min="0" placeholder="Digite minutos">
+
+    <div class="section-title">Taxa de Deslocamento</div>
+    <label><input type="radio" name="taxaDesloc" value="0" checked> Nenhuma</label>
+    <label><input type="radio" name="taxaDesloc" value="5"> Taxa 1 (R$ 5,00)</label>
+    <label><input type="radio" name="taxaDesloc" value="10"> Taxa 2 (R$ 10,00)</label>
+    <label><input type="radio" name="taxaDesloc" value="20"> Taxa 3 (R$ 20,00)</label>
+    <label><input type="radio" name="taxaDesloc" value="30"> Taxa 4 (R$ 30,00)</label>
+
+    <div style="margin-top:12px;">
+      <button id="calc" class="small">Calcular</button>
+      <button id="swap" class="small" type="button">Inverter</button>
+      <button id="whatsapp" class="small" type="button">Enviar WhatsApp</button>
+    </div>
+
+    <div class="result" id="result">Selecione origem, parada e destino e clique em "Calcular".</div>
+
+    <textarea id="priceJson" style="display:none;">
+{
+  "Centro do Cabo": {
+    "Praia de Porto de Galinhas": 70.00,
+    "Praia de Serrambi": 105.00,
+    "Praia de Maracaípe": 90.00,
+    "Praia do Cupe": 75.00,
+    "Praia de Muro Alto": 70.00,
+    "Praia de Tamandaré": 170.00,
+    "Praia dos Carneiros": 160.00,
+    "Praia de São José da Coroa Grande": 200.00,
+    "Praia de Barra de Sirinhaém": 120.00,
+    "Praia de Candeias": 40.00,
+    "Praia de Piedade": 40.00,
+    "Praia de Boa Viagem": 65.00,
+    "Praia do Pina": 75.00,
+    "Praia de Olinda": 100.00,
+    "Praia do Janga": 125.00,
+    "Praia de Maria Farinha": 155.00,
+    "Praia Ilha de Itamaracá": 197.00,
+    "Praia de Mangue Seco": 165.00,
+    "Praia do Sossego": 200.00,
+    "Praia de Ponta de Pedra": 265.00,
+    "Praia de Catuama": 280.00,
+    "Praia de Carne de Vaca": 260.00,
+    "Praia de Gaibú": 30.00,
+    "Praia de Gaibú/Águas Cumpridas": 35.00,
+    "Praia de Gaibú/Areal": 35.00,
+    "Praia de Gaibú/Fonte de Água Mineral": 40.00,
+    "Praia de Gaibú/Lagoa do Zumbi": 60.00,
+    "Praia de Gaibú/Jaqueira": 40.00,
+    "Praia de Gaibú/Pantanal": 40.00,
+    "Praia de Enseada dos Corais": 30.00,
+    "Praia de Itapuama": 35.00,
+    "Praia de Xaréu": 35.00,
+    "Praia do Paiva (Sem Pedágio)": 40.00,
+    "Praia de Suape": 40.00,
+    "Praia de Nazaré": 40.00,
+    "Praia de Calhetas": 50.00,
+    "Praia de Suape/Tiriri": 50.00,
+    "Praia de Suape/Bar do Doido": 60.00,
+    "Praia de Suape/Sê Povo": 40.00,
+    "Praia do Paraíso": 50.00,
+    "Praia de Enseada/Setor 4": 35.00,
+    "Centro do Cabo": 10.00,
+    "Cohab Antes da Passira": 10.00,
+    "Cohab Após a Passira": 10.00,
+    "Torrinha (Parte Baixa)": 10.00,
+    "Torrinha (Parte Alta)": 13.00,
+    "Bairro São Francisco": 13.00,
+    "Bairro São Francisco (Alto)": 15.00,
+    "Bairro São Francisco (Rua da Aurora)": 13.00,
+    "Bairro São Francisco (Rua 53)": 15.00,
+    "Bairro São Francisco (Rua do Bicudo)": 15.00,
+    "Bairro São Francisco (Rua 28 e 52)": 15.00,
+    "Charnequinha (Alta)": 15.00,
+    "Charnequinha (Baixa)": 13.00,
+    "Charnequinha (Rua 2 até a Quadra)": 15.00,
+    "Destilaria/Vila Social": 10.00,
+    "Comunidade da Destilaria": 13.00,
+    "Santo Inácio/Roca": 10.00,
+    "Santo Inácio (Campo de Baixa)": 13.00,
+    "Garapú (Até o Nova Era)": 13.00,
+    "Garapú (Após Nova Era até 2º Modelo)": 15.00,
+    "Garapú (Após 2º Modelo)": 18.00,
+    "Garapú (Campo do Flamenguinho)": 20.00,
+    "Garapú (Após o Flamenguinho)": 23.00,
+    "Garapú (Campo de Aranha)": 15.00,
+    "Vila Claudete (Antiga)": 13.00,
+    "Casinhas 1ª Etapa": 13.00,
+    "Casinhas 2ª Etapa": 15.00,
+    "Bela Vista/Cruzeiro": 13.00,
+    "Toca": 10.00,
+    "Charneca (Parte Baixa)": 15.00,
+    "Charneca (Parte Alta)": 18.00,
+    "Charneca (Corgo)": 18.00,
+    "Charneca (Cajueiro)": 21.00,
+    "Charneca (Antiga Estação)": 20.00,
+    "Novo Horizonte (Principais)": 15.00,
+    "Novo Horizonte (Difícil Acesso)": 18.00,
+    "Alto dos Funcionários": 15.00,
+    "Pirapama Centro (Baixo)": 15.00,
+    "Pirapama Centro (Alto)": 18.00,
+    "Pirapama Cida Park": 21.00,
+    "Pirapama Tururu": 28.00,
+    "Pirapama Mangueirinha": 28.00,
+    "Barbalho 1 e 2": 15.00,
+    "Barbalho (Em frente à Lagoa)": 18.00,
+    "Charneca (Rosa do Vento - Lá Dentro)": 20.00,
+    "Rosário": 17.00,
+    "Garapú Rosário": 20.00,
+    "Lote Garapú 2": 15.00,
+    "Condomínio Porto do Cabo": 15.00,
+    "Loteamento Dharma Ville": 20.00,
+    "Ponte dos Carvalhos": 25.00,
+    "Pontezinha": 30.00,
+    "Cone (Antes do Dom Helder)": 15.00,
+    "Granja Pajeú": 23.00,
+    "Castellos Recepções": 30.00,
+    "Eng. Massangana": 30.00,
+    "Eng. Serraria": 30.00,
+    "Eng. Serra até Pema": 23.00,
+    "Eng. Serra Após Pema": 30.00,
+    "Usina Bom Jesus": 25.00,
+    "Gurjaú": 40.00,
+    "Pau Santo": 100.00,
+    "Mercês até a Praça": 28.00,
+    "Mercês Após a Praça": 35.00,
+    "Mercês Poços": 35.00,
+    "Utinga de Baixo": 40.00,
+    "Utinga de Cima": 40.00,
+    "Eng. Castelo": 50.00,
+    "Sebastião Pol": 60.00,
+    "Sabiá": 50.00,
+    "Ipiranga": 70.00,
+    "Usina Liberdade": 60.00,
+    "Eng. Tapojí de Baixo": 85.00,
+    "Eng. Tapojí de Cima": 100.00,
+    "Arariba de Baixo": 85.00,
+    "Arariba de Cima": 100.00,
+    "Jussaral": 145.00,
+    "Maçau-açu": 85.00,
+    "Eng. Tabatinga até o Arruado": 40.00,
+    "Eng. Tabatinga após o Arruado": 60.00,
+    "Recife": 80.00
+  },
+  "Cohab antes da Passira": {
+    "Praia de Gaibú": 30.00
+  }
+}
+    </textarea>
+  </div>
+
+  <script>
+    const origSel = document.getElementById('orig');
+    const paradaSel = document.getElementById('parada');
+    const destSel = document.getElementById('dest');
+    const calcBtn = document.getElementById('calc');
+    const swapBtn = document.getElementById('swap');
+    const resultDiv = document.getElementById('result');
+    const priceJsonTA = document.getElementById('priceJson');
+    const whatsappBtn = document.getElementById('whatsapp');
+
+    let priceMatrix = {};
+
+    function populateSelects(locations){
+      const unique = Array.from(new Set(locations)).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+      [origSel, destSel].forEach(sel => {
+        sel.innerHTML = '';
+        unique.forEach(loc => {
+          const opt = document.createElement('option');
+          opt.value = loc; opt.textContent = loc;
+          sel.appendChild(opt.cloneNode(true));
+        });
+      });
+
+      // Parada pode ter opção Nenhuma
+      paradaSel.innerHTML = '';
+      const optNone = document.createElement('option');
+      optNone.value = 'Nenhuma';
+      optNone.textContent = 'Nenhuma';
+      paradaSel.appendChild(optNone);
+      unique.forEach(loc => {
+        const opt = document.createElement('option');
+        opt.value = loc; opt.textContent = loc;
+        paradaSel.appendChild(opt);
+      });
+    }
+
+    function loadMatrixFromTextarea(){
+      try {
+        priceMatrix = JSON.parse(priceJsonTA.value);
+        const keys = Object.keys(priceMatrix);
+        const subkeys = keys.flatMap(k => Object.keys(priceMatrix[k]||{}));
+        populateSelects(keys.concat(subkeys));
+        resultDiv.textContent = 'Matriz carregada com sucesso.';
+      } catch(e){
+        resultDiv.textContent = 'Erro ao carregar JSON: ' + e.message;
+      }
+    }
+
+    function getPrice(orig, dest){
+      if(priceMatrix[orig] && priceMatrix[orig][dest] != null){
+        return priceMatrix[orig][dest];
+      } else if(priceMatrix[dest] && priceMatrix[dest][orig] != null){
+        return priceMatrix[dest][orig];
+      }
+      return null;
+    }
+
+    function calcularValor(){
+      const orig = origSel.value;
+      const dest = destSel.value;
+      const parada = paradaSel.value;
+
+      if(!orig || !dest){
+        resultDiv.textContent = 'Por favor, selecione origem e destino.';
+        return;
+      }
+      if(orig === dest){
+        resultDiv.textContent = 'Origem e destino não podem ser iguais.';
+        return;
+      }
+
+      let total = 0;
+      let detalhe = [];
+
+      if(parada && parada !== 'Nenhuma' && parada !== orig && parada !== dest){
+        const val1 = getPrice(orig, parada);
+        const val2 = getPrice(parada, dest);
+        if(val1 == null || val2 == null){
+          resultDiv.textContent = 'Valor não encontrado para um dos trechos.';
+          return;
+        }
+        total = val1 + val2;
+        detalhe.push(`Origem ➡ Parada: R$ ${val1.toFixed(2)}`);
+        detalhe.push(`Parada ➡ Destino: R$ ${val2.toFixed(2)}`);
+      } else {
+        const val = getPrice(orig, dest);
+        if(val == null){
+          resultDiv.textContent = 'Valor não encontrado para a origem e destino selecionados.';
+          return;
+        }
+        total = val;
+        detalhe.push(`Origem ➡ Destino: R$ ${val.toFixed(2)}`);
+      }
+
+      let taxaAdd = 0;
+      if(document.getElementById('taxaNoturno').checked){
+        const adicional = total * 0.5;
+        taxaAdd += adicional;
+        detalhe.push(`Adicional Noturno (50%): R$ ${adicional.toFixed(2)}`);
+      }
+      if(document.getElementById('taxaCompras').checked){
+        taxaAdd += 5.00;
+        detalhe.push('Taxa de Compras: R$ 5,00');
+      }
+      if(document.getElementById('taxaExcesso').checked){
+        taxaAdd += 8.00;
+        detalhe.push('Taxa Excesso Pessoas/Bagagens: R$ 8,00');
+      }
+      if(document.getElementById('taxaPetCasinha').checked){
+        taxaAdd += 5.00;
+        detalhe.push('Pet na casinha: R$ 5,00');
+      }
+      if(document.getElementById('taxaPetSemCasinha').checked){
+        taxaAdd += 15.00;
+        detalhe.push('Pet sem casinha: R$ 15,00');
+      }
+
+      const minEspera = Number(document.getElementById('minEspera').value) || 0;
+      if(minEspera > 0){
+        const esperaValor = Math.ceil(minEspera / 5) * 3;
+        taxaAdd += esperaValor;
+        detalhe.push(`Taxa de Espera (${minEspera} min): R$ ${esperaValor.toFixed(2)}`);
+      }
+
+      // Taxa de deslocamento
+      const taxaDeslocRadio = document.querySelector('input[name="taxaDesloc"]:checked');
+      if(taxaDeslocRadio){
+        const taxaDesloc = Number(taxaDeslocRadio.value);
+        if(taxaDesloc > 0){
+          taxaAdd += taxaDesloc;
+          detalhe.push(`Taxa de Deslocamento: R$ ${taxaDesloc.toFixed(2)}`);
+        }
+      }
+
+      total += taxaAdd;
+      detalhe.push('-----------------------');
+      detalhe.push(`Total: R$ ${total.toFixed(2)}`);
+
+      resultDiv.textContent = detalhe.join('\n');
+      return total.toFixed(2);
+    }
+
+    function swapOrigDest(){
+      const orig = origSel.value;
+      origSel.value = destSel.value;
+      destSel.value = orig;
+      paradaSel.value = 'Nenhuma';
+      resultDiv.textContent = 'Origem e destino invertidos.';
+    }
+
+    function enviarWhatsapp(){
+      const motorista = document.getElementById('motorista').value.trim() || 'Não informado';
+      const carro = document.getElementById('carro').value.trim() || 'Não informado';
+      const placa = document.getElementById('placa').value.trim() || 'Não informado';
+
+      const orig = origSel.value;
+      const parada = paradaSel.value;
+      const dest = destSel.value;
+      const valor = calcularValor();
+
+      if(!orig || !dest){
+        alert('Selecione origem e destino antes de enviar.');
+        return;
+      }
+      if(!valor){
+        alert('Calcule o valor antes de enviar.');
+        return;
+      }
+
+      let mensagem = `🚖 *Grupo 5 Estrelas* 🚖\n\n`;
+      mensagem += `👤 Motorista: ${motorista}\n`;
+      mensagem += `🚗 Carro: ${carro}\n`;
+      mensagem += `🔢 Placa: ${placa}\n\n`;
+      mensagem += `📍 Origem: ${orig}\n`;
+      if(parada && parada !== 'Nenhuma'){
+        mensagem += `⏸️ Parada: ${parada}\n`;
+      }
+      mensagem += `📍 Destino: ${dest}\n\n`;
+      mensagem += `💰 Valor Total: R$ ${valor}\n\n`;
+      mensagem += `📅 Data/Hora: ${new Date().toLocaleString('pt-BR')}`;
+
+      const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
+    }
+
+    window.addEventListener('load', loadMatrixFromTextarea);
+    calcBtn.addEventListener('click', calcularValor);
+    swapBtn.addEventListener('click', swapOrigDest);
+    whatsappBtn.addEventListener('click', enviarWhatsapp);
+  </script>
+</body>
+</html>
