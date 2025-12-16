@@ -1,264 +1,268 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Viagens 5 Estrelas</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-      color: #330000;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #660000;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 2px solid #660000;
-      border-radius: 10px;
-    }
-    h2 {
-      color: #660000;
-      margin-bottom: 10px;
-    }
-    select, input[type="number"], button {
-      width: 100%;
-      padding: 8px;
-      margin: 5px 0 15px 0;
-      border-radius: 5px;
-      border: 1px solid #660000;
-      font-size: 1em;
-    }
-    button {
-      background-color: #660000;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-    button:hover {
-      background-color: #993333;
-    }
-    .result {
-      margin-top: 20px;
-      border-top: 2px solid #660000;
-      padding-top: 10px;
-    }
-    .taxas, .deslocamento {
-      background-color: #fff0b3;
-      padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 15px;
-    }
-    .subtitulo {
-      font-weight: bold;
-      margin-top: 10px;
-      margin-bottom: 5px;
-    }
-    label {
-      font-weight: bold;
-    }
-    .inline {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .inline select, .inline input {
-      flex: 1;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passageiros 5 Estrelas – Avisos Importantes</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+  --bg:#f7f5f3;
+  --card:#ffffff;
+  --wine:#7b1e26;
+  --wine-dark:#5a141a;
+  --gold:#c9a24d;
+  --text:#1f1f1f;
+  --shadow:rgba(0,0,0,.18);
+}
+body.dark{
+  --bg:#0f0f10;
+  --card:#1a1a1c;
+  --text:#f4f4f4;
+  --shadow:rgba(0,0,0,.6);
+}
+
+body{
+  margin:0;
+  padding:24px;
+  background:
+    radial-gradient(circle at top left, rgba(201,162,77,.15), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(123,30,38,.18), transparent 45%),
+    var(--bg);
+  font-family:Poppins,sans-serif;
+  color:var(--text);
+}
+
+/* MENU BUTTON */
+.menu-toggle{
+  position:fixed;
+  top:18px;
+  left:18px;
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--wine),var(--wine-dark));
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  z-index:1200;
+  cursor:pointer;
+  border:2px solid var(--gold);
+}
+
+/* DRAWER */
+.drawer{
+  position:fixed;
+  top:0;
+  left:-280px;
+  width:260px;
+  height:100vh;
+  background:var(--card);
+  box-shadow:8px 0 30px rgba(0,0,0,.35);
+  z-index:1300;
+  padding:18px 14px;
+  transition:.3s;
+}
+body.dark .drawer{background:#111;}
+.drawer.open{left:0;}
+.drawer a{
+  display:flex;
+  gap:12px;
+  padding:12px;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+}
+.drawer a i{color:var(--wine);}
+.drawer .suporte-whatsapp{
+  margin-top:auto;
+  background:#25d366;
+  color:#fff;
+  border-radius:10px;
+}
+
+/* CONTENT */
+.container{
+  max-width:720px;
+  margin:auto;
+}
+.card{
+  position:relative;
+  background:var(--card);
+  border-radius:30px;
+  padding:44px 28px 38px;
+  box-shadow:0 25px 60px var(--shadow);
+  border:2px solid var(--gold);
+}
+.ribbon{
+  height:14px;
+  background:linear-gradient(90deg,var(--wine),var(--wine-dark));
+}
+.emblem{
+  width:86px;
+  height:86px;
+  margin:20px auto;
+  border-radius:50%;
+  background:radial-gradient(circle at top left,#fff,var(--gold));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:46px;
+  border:3px solid var(--wine);
+}
+.title{
+  text-align:center;
+}
+.title h1{
+  font-family:'Playfair Display',serif;
+  font-size:40px;
+  color:var(--wine);
+}
+.subtitle{
+  margin-top:10px;
+  font-size:17px;
+  font-weight:600;
+  text-align:center;
+}
+
+/* AVISOS */
+.notice{
+  margin-top:28px;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(123,30,38,.06);
+  line-height:1.6;
+  font-size:16px;
+}
+.notice strong{
+  color:var(--wine);
+}
+
+/* TOGGLE */
+.toggle{
+  text-align:center;
+  margin-bottom:18px;
+}
+.toggle button{
+  background:linear-gradient(135deg,var(--gold),#e6c76a);
+  border:none;
+  padding:8px 20px;
+  border-radius:30px;
+  font-weight:700;
+  cursor:pointer;
+}
+</style>
 </head>
+
 <body>
-  <header>Calculadora de Viagens 5 Estrelas ⭐⭐⭐⭐⭐</header>
-  <div class="container">
-    <h2>Grupo 5 ESTRELAS - Calculadora de Viagens</h2>
 
-    <!-- Origem/Destino -->
-    <label>Origem / Destino:</label>
-    <div class="inline">
-      <select id="origemCategoria">
-        <option value="">Selecione categoria</option>
-        <option value="locais">Viagens Locais</option>
-        <option value="praias">Viagens de Praias</option>
-        <option value="engenhos">Viagens de Engenhos</option>
-        <option value="longas">Viagens Longas</option>
-      </select>
-      <select id="origemDestino">
-        <option value="">Selecione destino</option>
-      </select>
-    </div>
+<!-- BOTÃO MENU -->
+<div class="menu-toggle" onclick="toggleDrawer()">
+  <i class="fa fa-bars"></i>
+</div>
 
-    <!-- Paradas -->
-    <label>Paradas (opcional):</label>
-    <div class="inline">
-      <select id="paradaCategoria">
-        <option value="">Selecione categoria</option>
-        <option value="locais">Viagens Locais</option>
-        <option value="praias">Viagens de Praias</option>
-        <option value="engenhos">Viagens de Engenhos</option>
-        <option value="longas">Viagens Longas</option>
-      </select>
-      <select id="paradaDestino">
-        <option value="">Selecione destino</option>
-      </select>
-    </div>
+<!-- MENU LATERAL -->
+<nav class="drawer" id="drawer">
+  <a href="index.html"><i class="fa fa-home"></i> Página inicial</a>
+  <a href="viagens-locais.html"><i class="fa fa-car"></i> Viagens Locais</a>
+  <a href="viagens-praia.html"><i class="fa fa-umbrella-beach"></i> Praia</a>
+  <a href="viagens-engenho.html"><i class="fa fa-car"></i> Engenhos</a>
+  <a href="viagens-longas.html"><i class="fa fa-road"></i> Viagens Longas</a>
+  <a href="viagens-interurbanas.html"><i class="fa fa-bus"></i> Interurbanas</a>
+  <a </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581987349286" target="_blank">
+    <i class="fa fa-whatsapp"></i> Anderson ADM
+  </a>
+  <a </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581999307895" target="_blank">
+    <i class="fa fa-whatsapp"></i> Jaciel ADM
+  </a>
+  <a </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581984652228" target="_blank">
+    <i class="fa fa-whatsapp"></i> Jailson ADM
+  </a>
+  <a </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581993371790" target="_blank">
+    <i class="fa fa-whatsapp"></i> Ronaldo ADM
+  </a>
+  <a </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581994043237" target="_blank">
+    <i class="fa fa-whatsapp"></i> Jadson ADM
+  </a>
+  <a </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581987050948" target="_blank">
+    <i class="fa fa-whatsapp"></i> Paulo ADM
+  </a>
+</nav>
 
-    <!-- Destino/Origem -->
-    <label>Destino / Origem:</label>
-    <div class="inline">
-      <select id="destinoCategoria">
-        <option value="">Selecione categoria</option>
-        <option value="locais">Viagens Locais</option>
-        <option value="praias">Viagens de Praias</option>
-        <option value="engenhos">Viagens de Engenhos</option>
-        <option value="longas">Viagens Longas</option>
-      </select>
-      <select id="destinoOrigem">
-        <option value="">Selecione destino</option>
-      </select>
-    </div>
+<div class="container">
 
-    <!-- Taxas adicionais -->
-    <div class="taxas">
-      <h3>Taxas Adicionais</h3>
-      <div>
-        <label><input type="checkbox" id="noturno"> Adicional Noturno (50% do valor)</label>
-      </div>
-      <div>
-        <label><input type="checkbox" id="taxaCompras"> Taxa de Compras (R$ 5,00)</label>
-      </div>
-      <div>
-        <label><input type="checkbox" id="excessoPessoas"> Excesso de pessoas (50% do valor)</label>
-      </div>
-      <div>
-        <label>Pet: </label>
-        <select id="pet">
-          <option value="0">Nenhum</option>
-          <option value="5">Na casinha (R$5)</option>
-          <option value="15">Fora da casinha (R$15)</option>
-        </select>
-      </div>
-      <div>
-        <label>Tempo de espera (min): </label>
-        <input type="number" id="espera" min="0" max="120" value="0">
-      </div>
-    </div>
-
-    <!-- Taxa de deslocamento -->
-    <div class="deslocamento">
-      <h3>Taxa de Deslocamento</h3>
-      <select id="deslocamento">
-        <option value="0">Nenhuma</option>
-        <option value="5">R$ 5,00</option>
-        <option value="10">R$ 10,00</option>
-        <option value="20">R$ 20,00</option>
-        <option value="30">R$ 30,00</option>
-      </select>
-    </div>
-
-    <!-- Botões -->
-    <div class="inline">
-      <button onclick="calcular()">Calcular</button>
-      <button onclick="inverter()">Inverter</button>
-      <button onclick="enviarWhatsapp()">Enviar WhatsApp</button>
-    </div>
-
-    <!-- Resultado -->
-    <div class="result" id="resultado">
-      <h3>Resultado da Viagem</h3>
-      <div id="detalhes"></div>
-    </div>
+  <div class="toggle">
+    <button onclick="toggleTheme()">🌗 Alternar Tema</button>
   </div>
 
-  <script>
-    // Dados de exemplo (você pode expandir conforme os destinos completos)
-    const destinos = {
-      locais: {
-        "Centro do Cabo": 10,
-        "Cohab antes da Passira": 10,
-        "Cohab Após a Passira": 10,
-        "Torrinha (Parte Baixa)": 10,
-        "Torrinha (Parte Alta)": 13
-      },
-      praias: {
-        "Praia de Porto de Galinhas": 70,
-        "Praia de Serrambi": 105,
-        "Praia de Maracaípe": 90
-      },
-      engenhos: {
-        "Granja Pajeú": 23,
-        "Castellos Recepções": 30,
-        "Eng. Massangana": 30
-      },
-      longas: {
-        "Ipojuca Centro": 40,
-        "Ipojuca IFPE": 30,
-        "Ipojuca UPA 24h": 35
-      }
-    };
+  <div class="card">
+    <div class="ribbon"></div>
 
-    function atualizarSelect(categoriaId, destinoId) {
-      const cat = document.getElementById(categoriaId).value;
-      const destinoSelect = document.getElementById(destinoId);
-      destinoSelect.innerHTML = '<option value="">Selecione destino</option>';
-      if(destinos[cat]){
-        for (const key in destinos[cat]) {
-          const opt = document.createElement('option');
-          opt.value = destinos[cat][key];
-          opt.textContent = key + " (R$ " + destinos[cat][key].toFixed(2) + ")";
-          destinoSelect.appendChild(opt);
-        }
-      }
-    }
+    <div class="emblem">🎄</div>
 
-    document.getElementById('origemCategoria').addEventListener('change', () => atualizarSelect('origemCategoria','origemDestino'));
-    document.getElementById('paradaCategoria').addEventListener('change', () => atualizarSelect('paradaCategoria','paradaDestino'));
-    document.getElementById('destinoCategoria').addEventListener('change', () => atualizarSelect('destinoCategoria','destinoOrigem'));
+    <div class="title">
+      <h1>Passageiros 5 Estrelas</h1>
+      <div class="subtitle">
+        Avisos e Orientações – Período de Natal
+      </div>
+    </div>
 
-    function calcular() {
-      const origem = parseFloat(document.getElementById('origemDestino').value) || 0;
-      const parada = parseFloat(document.getElementById('paradaDestino').value) || 0;
-      const destino = parseFloat(document.getElementById('destinoOrigem').value) || 0;
+    <div class="notice">
+      ⚠️ <strong>Atenção:</strong><br><br>
 
-      let subtotal = origem + (parada > 0 ? parada : 0) + destino;
+      Esta página contém todas as informações referentes às
+      <strong>tabelas especiais de valores vigentes no período de Natal</strong>.<br><br>
 
-      // Taxas adicionais
-      if(document.getElementById('noturno').checked) subtotal *= 1.5;
-      if(document.getElementById('excessoPessoas').checked) subtotal *= 1.5;
-      if(document.getElementById('taxaCompras').checked) subtotal += 5;
-      subtotal += parseFloat(document.getElementById('pet').value || 0);
+      Recomendamos que todos os passageiros
+      <strong>leiam atentamente os avisos</strong> antes de solicitar a viagem.<br><br>
 
-      const espera = parseInt(document.getElementById('espera').value);
-      if(espera >= 5) subtotal += 3 + (espera - 5) * 0.6;
+      Cada categoria de viagem possui sua própria tabela,
+      acessível pelo menu lateral.<br><br>
 
-      subtotal += parseFloat(document.getElementById('deslocamento').value || 0);
+      Em caso de dúvidas sobre valores, taxas adicionais ou condições específicas,
+      entre em contato diretamente com um dos
+      <strong>administradores do grupo</strong> através do
+      <strong>WhatsApp disponível no menu lateral</strong>.
+    </div>
 
-      document.getElementById('detalhes').innerHTML = "Valor Total: R$ " + subtotal.toFixed(2);
-    }
+  </div>
+</div>
 
-    function inverter() {
-      const origemSelect = document.getElementById('origemDestino');
-      const destinoSelect = document.getElementById('destinoOrigem');
-      const tempVal = origemSelect.value;
-      origemSelect.value = destinoSelect.value;
-      destinoSelect.value = tempVal;
-    }
+<script>
+(function(){
+  const savedTheme = localStorage.getItem("theme");
+  if(savedTheme==="dark") document.body.classList.add("dark");
+})();
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+}
+function toggleDrawer(){
+  document.getElementById("drawer").classList.toggle("open");
+}
+</script>
 
-    function enviarWhatsapp() {
-      const valor = document.getElementById('detalhes').textContent;
-      const url = `https://wa.me/?text=Viagem calculada: ${encodeURIComponent(valor)}`;
-      window.open(url,'_blank');
-    }
-  </script>
 </body>
 </html>
