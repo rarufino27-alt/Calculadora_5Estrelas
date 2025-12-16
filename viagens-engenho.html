@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viagens de Praias – Passageiro 5 Estrelas</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+  --bg:#f7f5f3;
+  --card:#ffffff;
+  --wine:#7b1e26;
+  --wine-dark:#5a141a;
+  --gold:#c9a24d;
+  --text:#1f1f1f;
+  --shadow:rgba(0,0,0,.18);
+}
+body.dark{
+  --bg:#0f0f10;
+  --card:#1a1a1c;
+  --text:#f4f4f4;
+  --shadow:rgba(0,0,0,.6);
+}
+
+body{
+  margin:0;
+  padding:24px;
+  background:
+    radial-gradient(circle at top left, rgba(201,162,77,.15), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(123,30,38,.18), transparent 45%),
+    var(--bg);
+  font-family:Poppins,sans-serif;
+  color:var(--text);
+}
+
+/* MENU BUTTON */
+.menu-toggle{
+  position:fixed;
+  top:18px;
+  left:18px;
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--wine),var(--wine-dark));
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  z-index:1200;
+  cursor:pointer;
+  border:2px solid var(--gold);
+}
+
+/* DRAWER */
+.drawer{
+  position:fixed;
+  top:0;
+  left:-280px;
+  width:260px;
+  height:100vh;
+  background:var(--card);
+  box-shadow:8px 0 30px rgba(0,0,0,.35);
+  z-index:1300;
+  padding:18px 14px;
+  transition:.3s;
+}
+body.dark .drawer{background:#111;}
+.drawer.open{left:0;}
+.drawer a{
+  display:flex;
+  gap:12px;
+  padding:12px;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+}
+.drawer a i{color:var(--wine);}
+.drawer .suporte-whatsapp{
+  margin-top:auto;
+  background:#25d366;
+  color:#fff;
+  border-radius:10px;
+}
+
+/* TOGGLE */
+.toggle{text-align:center;margin-bottom:18px;}
+.toggle button{
+  background:linear-gradient(135deg,var(--gold),#e6c76a);
+  border:none;
+  padding:8px 20px;
+  border-radius:30px;
+  font-weight:700;
+}
+
+/* CARD */
+.container{max-width:720px;margin:auto;}
+.card{
+  position:relative;
+  background:var(--card);
+  border-radius:30px;
+  padding:44px 28px 38px;
+  box-shadow:0 25px 60px var(--shadow);
+  border:2px solid var(--gold);
+}
+.ribbon{height:14px;background:linear-gradient(90deg,var(--wine),var(--wine-dark));}
+.emblem{
+  width:86px;height:86px;margin:20px auto;border-radius:50%;
+  background:radial-gradient(circle at top left,#fff,var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:46px;border:3px solid var(--wine);
+}
+.title{text-align:center;}
+.title h1{
+  font-family:'Playfair Display',serif;
+  font-size:42px;color:var(--wine);
+}
+.subtitle{font-size:17px;font-weight:600;}
+.notice{margin-top:30px;padding:18px;border-radius:18px;
+background:rgba(123,30,38,.06);}
+.table{margin-top:26px;display:grid;gap:14px;}
+.row{
+  display:flex;justify-content:space-between;
+  padding:16px 20px;border-radius:20px;
+  border:1.5px solid rgba(201,162,77,.55);
+}
+.old{text-decoration:line-through;}
+.new{font-weight:800;color:var(--wine);}
+.support{margin-top:36px;}
+.support a{display:block;font-weight:700;color:#000;}
+.back{text-align:center;margin-top:28px;}
+</style>
+</head>
+
+<body>
+
+<div class="menu-toggle" onclick="toggleDrawer()">
+  <i class="fa fa-bars"></i>
+</div>
+
+    <div class="back">
+      <a href="index.html">⬅ Voltar</a>
+    </div>
+
+<nav class="drawer" id="drawer">
+  <a href="index.html"><i class="fa fa-home"></i> Menu</a>
+  <a href="viagens-locais.html"><i class="fa fa-car"></i> Viagens Locais</a>
+  <a href="viagens-praia.html"><i class="fa fa-umbrella-beach"></i> Praia</a>
+  <a href="viagens-engenho.html"><i class="fa fa-car"></i> Engenhos</a>
+  <a href="viagens-longas.html"><i class="fa fa-road"></i> Viagem Longa</a>
+  <a href="viagens-interurbanas.html"><i class="fa fa-bus"></i> Interurbanas</a>
+  <a  </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581987349286" target="_blank">
+    <i class="fa fa-whatsapp"></i> Anderson ADM
+  </a>
+  <a  </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581999307895" target="_blank">
+    <i class="fa fa-whatsapp"></i> Jaciel ADM
+  </a>
+  <a  </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581984652228" target="_blank">
+    <i class="fa fa-whatsapp"></i> Jailson ADM
+  </a>
+  <a  </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581993371790" target="_blank">
+    <i class="fa fa-whatsapp"></i> Ronaldo ADM
+  </a>
+  <a  </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581994043237" target="_blank">
+    <i class="fa fa-whatsapp"></i> Jadson ADM
+  </a>
+  <a  </a>
+  <a class="suporte-whatsapp"
+     href="https://wa.me/5581987050948" target="_blank">
+    <i class="fa fa-whatsapp"></i> Paulo ADM
+  </a>
+</nav>
+
+<div class="container">
+
+  <div class="toggle">
+    <button onclick="toggleTheme()">🌗 Alternar Tema</button>
+  </div>
+
+  <div class="card">
+    <div class="ribbon"></div>
+    <div class="emblem">🌾</div>
+
+    <div class="title">
+      <h1>Viagens de Engenho</h1>
+      <div class="subtitle">
+        Natal – 24/12 12h até 26/12 05h
+      </div>
+    </div>
+
+    <div class="notice">
+      ⚠️ <strong>Importante:</strong><br><br>
+      Durante o período de vigência desta tabela especial de Natal,
+      <strong>taxas de feira, retorno de praias não serão aplicadas</strong>.<br><br>
+      Permanecem válidas, quando aplicáveis, taxas adicionais como:
+      <strong>excesso de passageiros, deslocamento</strong>,
+      entre outras situações específicas.<br><br>
+      Para esclarecimentos sobre taxas, valores ou condições da sua viagem,
+      entre em contato diretamente com a administração, clicando no nome do
+      <strong>administrador desejado</strong> abaixo.
+    </div>
+
+    <div class="table">
+      <div class="row"><span class="old">R$30</span><span class="new">R$50</span></div>
+      <div class="row"><span class="old">R$35</span><span class="new">R$55</span></div>
+      <div class="row"><span class="old">R$38</span><span class="new">R$60</span></div>
+      <div class="row"><span class="old">R$40</span><span class="new">R$65</span></div>
+      <div class="row"><span class="old">R$43</span><span class="new">R$65</span></div>
+      <div class="row"><span class="old">R$45</span><span class="new">R$70</span></div>
+      <div class="row"><span class="old">R$48</span><span class="new">R$75</span></div>
+      <div class="row"><span class="old">R$50</span><span class="new">R$80</span></div>
+      <div class="row"><span class="old">R$53</span><span class="new">R$80</span></div>
+      <div class="row"><span class="old">R$55</span><span class="new">R$85</span></div>
+      <div class="row"><span class="old">R$60</span><span class="new">R$90</span></div>
+      <div class="row"><span class="old">R$65</span><span class="new">R$95</span></div>
+      <div class="row"><span class="old">R$70</span><span class="new">R$105</span></div>
+      <div class="row"><span class="old">R$75</span><span class="new">R$110</span></div>
+      <div class="row"><span class="old">R$80</span><span class="new">R$120</span></div>
+      <div class="row"><span class="old">R$85</span><span class="new">R$125</span></div>
+      <div class="row"><span class="old">R$90</span><span class="new">R$135</span></div>
+      <div class="row"><span class="old">R$95</span><span class="new">R$138</span></div>
+      <div class="row"><span class="old">R$100</span><span class="new">R$150</span></div>
+      <div class="row"><span class="old">R$110</span><span class="new">R$155</span></div>
+      <div class="row"><span class="old">R$120</span><span class="new">R$180</span></div>
+    </div>
+
+    <div class="back">
+      <a href="index.html">⬅ Voltar</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const savedTheme = localStorage.getItem("theme");
+  if(savedTheme==="dark") document.body.classList.add("dark");
+})();
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark")?"dark":"light");
+}
+function toggleDrawer(){
+  document.getElementById("drawer").classList.toggle("open");
+}
+</script>
+
+</body>
+</html>
